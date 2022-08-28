@@ -12,8 +12,7 @@ pygame.display.set_caption('Runner')
 clock = pygame.time.Clock()
 
 #Creating a surface of just plain colour
-test_surface = pygame.Surface((100, 200))
-test_surface.fill('Blue')
+test_surface = pygame.image.load('graphics/Sky.png')
 
 while True:
 
@@ -24,7 +23,7 @@ while True:
             exit()
 
     #attach test_surface to display surface
-    screen.blit(test_surface, (200, 100)) #calling the display surface itself (blit = block image transfer - i.e. 
+    screen.blit(test_surface, (0, 0)) #calling the display surface itself (blit = block image transfer - i.e. 
     #putting 1 surface on another surface). surface = test_surface, position = c(0,0)
 
     pygame.display.update()
