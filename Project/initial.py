@@ -22,12 +22,12 @@ text_surface = test_font.render('My game', False, 'Black') #3 arguments - text i
 
 #import snail image
 snail_surface = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-
-snail_x_pos = 600
-snail_y_pos = 250
+snail_rect = snail_surface.get_rect(bottomright = (600, 300))
 
 player_surface = pygame.image.load('graphics/player/player_walk_1.png').convert_alpha()
-player_rect = player_surface.get_rect(topleft = (80, 200))
+player_rect = player_surface.get_rect(midbottom = (80, 300))
+
+mouse_pos = pygame.mouse.get_pos() #get the mouse position
 
 while True:
 
@@ -36,6 +36,13 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        
+        #gives us the mouse position (this would only trigger if we move the mouse)
+        # if event.type == pygame.MOUSEMOTION:
+        #     print(event.pos)
+
+        #checking if the mouse collides with the player rectangle 
+        
 
     #attach sky_surface to display surface
     screen.blit(sky_surface, (0, 0)) #calling the display surface itself (blit = block image transfer - i.e. 
@@ -45,13 +52,24 @@ while True:
     screen.blit(ground_surface, (0, 300))
 
     screen.blit(text_surface, (300, 50))
+    
+    snail_rect.right -= 4
+    screen.blit(snail_surface, snail_rect)
 
+    if snail_rect.right <= 0:
+        snail_rect.left = 800
+
+    player_rect.left += 1
     screen.blit(player_surface, player_rect)
 
-    snail_x_pos -= 4
-    if snail_x_pos < -50:
-        snail_x_pos = 800
-    screen.blit(snail_surface, (snail_x_pos, snail_y_pos))
+    # if player_rect.colliderect(snail_rect):
+    #     print('collision')
+
+    #collidepoint with mouse
+    
+    if player_rect.collidepoint(mouse_pos):
+        print(pygame.mouse.get_pressed())
+
 
 
     pygame.display.update()
